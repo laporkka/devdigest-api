@@ -39,9 +39,25 @@ services:
       - "8000:8000"
     volumes:
       - ./app:/code/app
-    environment:
-      - POSTGRES_HOST=postgres
-      - REDIS_HOST=redis
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: devdigest_worker
+    working_dir: /code/app
+    command: celery -A tasks.worker.celery_app worker -l info
+    volumes:
+      - ./app:/code/app
+    env_file:
+      - .env
     depends_on:
       postgres:
         condition: service_healthy
