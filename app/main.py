@@ -20,11 +20,6 @@ app.add_middleware(
 )
 
 
-@app.get("/")
-async def root():
-    return {"status": "ok", "project": settings.PROJECT_NAME}
-
-
 app.include_router(users_router)
 
 

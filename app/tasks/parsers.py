@@ -4,8 +4,7 @@ from celery import shared_task
 from sqlalchemy import select
 
 from core.database import AsyncSessionLocal
-from models.tags import Tag
-from models.articles import Article
+from app.models.models import Tag, Article
 
 
 async def fetch_story_details(client: httpx.AsyncClient, story_id: int) -> dict | None:
