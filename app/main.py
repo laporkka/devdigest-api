@@ -1,6 +1,8 @@
 from fastapi import FastAPI, status
 from fastapi.middleware.cors import CORSMiddleware
+
 from core.config import settings
+from api.users import router as users_router
 
 
 app = FastAPI(
@@ -21,3 +23,15 @@ app.add_middleware(
 @app.get("/")
 async def root():
     return {"status": "ok", "project": settings.PROJECT_NAME}
+
+
+app.include_router(users_router)
+
+
+@app.get("/")
+async def root():
+    return {
+        "status": "ok", 
+        "project": settings.PROJECT_NAME,
+        "environment": settings.ENVIRONMENT
+    }
