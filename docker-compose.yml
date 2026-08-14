@@ -54,7 +54,7 @@ services:
       dockerfile: Dockerfile
     container_name: devdigest_worker
     working_dir: /code
-    command: celery -A tasks.worker.celery_app worker -l info
+    command: celery -A app.tasks.worker.celery_app worker -l info
     volumes:
       - .:/code
     env_file:

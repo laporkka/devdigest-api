@@ -23,7 +23,7 @@ celery_app.conf.update(
 )
 
 
-celery_app.autodiscover_tasks(["tasks"])
+celery_app.autodiscover_tasks(["app.tasks"])
 
 
 @celery_app.task
