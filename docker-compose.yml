@@ -34,12 +34,12 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: devdigest_api
-    working_dir: /code/app
-    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    working_dir: /code
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
     ports:
       - "8000:8000"
     volumes:
-      - ./app:/code/app
+      - .:/code
     env_file:
       - .env
     depends_on:
@@ -53,10 +53,10 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: devdigest_worker
-    working_dir: /code/app
+    working_dir: /code
     command: celery -A tasks.worker.celery_app worker -l info
     volumes:
-      - ./app:/code/app
+      - .:/code
     env_file:
       - .env
     depends_on:

@@ -1,5 +1,5 @@
 from celery import Celery
-from core.config import settings
+from app.core.config import settings
 
 
 BROKER_URL = f"redis://{settings.REDIS_HOST}:{settings.REDIS_PORT}/0"

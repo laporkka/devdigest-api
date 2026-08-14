@@ -3,7 +3,7 @@ import httpx
 from celery import shared_task
 from sqlalchemy import select
 
-from core.database import AsyncSessionLocal
+from app.core.database import AsyncSessionLocal
 from app.models.models import Tag, Article
 
 
