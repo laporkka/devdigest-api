@@ -5,12 +5,13 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.api.deps import get_current_user
 from app.models.models import Tag, User, UserTag
 from app.core.database import get_db
+from app.schemas.tags import TagsResponse
 
 
 router = APIRouter(prefix="/tags", tags=["Tags"])
 
 
-@router.get("", response_model=list)
+@router.get("", response_model=list[TagsResponse])
 async def get_all_tags(
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(get_current_user)
