@@ -39,7 +39,7 @@ async def run_parser():
         allowed_tags = [t.name.lower() for t in tags_objects]
 
         if not allowed_tags:
-            allowed_tags = ["python", "fastapi", "ai", "rust", "docker"]
+            allowed_tags = ["python", "fastapi", "ai", "celary", "docker", "redis", "alembic", "postgreQL"]
 
 
         for story in stories:
