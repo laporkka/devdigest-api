@@ -1,4 +1,5 @@
 from celery import Celery
+from celery.schedules import crontab
 from app.core.config import settings
 
 
@@ -24,6 +25,17 @@ celery_app.conf.update(
 
 
 celery_app.autodiscover_tasks(["app.tasks"])
+
+celery_app.conf.imports = ("app.tasks.parsers",)
+
+celery_app.conf.beat_schedule = {
+    "parse-hn-every-hour": {
+        "task": "tasks.parse_hackernews",  
+        "schedule": crontab(minute=0),     
+    },
+}
+
+celery_app.conf.timezone = "UTC"
 
 
 @celery_app.task

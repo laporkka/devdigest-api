@@ -65,6 +65,24 @@ services:
       redis:
         condition: service_healthy
 
+  beat:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: devdigest_beat
+    working_dir: /code
+    command: celery -A app.tasks.worker.celery_app beat -l info
+    volumes:
+      - .:/code
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+
 volumes:
   postgres_data:
   redis_data:
