@@ -23,6 +23,18 @@ async def get_all_tags(
     return tags
 
 
+@router.get("/my_tags", response_model=list[TagsResponse])
+async def get_my_tags(
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    query = select(Tag).join(UserTag, Tag.id == UserTag.tag_id).where(UserTag.user_id == current_user.id)
+    result = await db.execute(query)
+    my_tags = result.scalars().all()
+
+    return my_tags
+
+
 @router.post("/subscribe/{tag_id}", response_model=dict)
 async def tag_subscribe(
     tag_id: int,
