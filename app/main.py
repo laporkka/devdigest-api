@@ -8,7 +8,7 @@ from app.core.database import AsyncSessionLocal
 from app.models.models import Tag
 from app.api.users import router as users_router
 from app.api.tags import router as tags_router
-from app.api.arlicles import router as article_router
+from app.api.articles import router as article_router
 
 
 @asynccontextmanager

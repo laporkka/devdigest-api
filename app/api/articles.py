@@ -24,8 +24,8 @@ async def get_user_news_feed(
         return []
 
     conditions = [Article.title.ilike(f"%{tag_name}%") for tag_name in user_tags]
-
-    article_query = select(Article).where(*conditions).order_by(Article.score.desc())
+    
+    article_query = select(Article).where(or_(*conditions)).order_by(Article.score.desc())
     article_result = await db.execute(article_query)
     articles = article_result.scalars().all()
 

@@ -4,7 +4,7 @@ from app.core.config import settings
 
 
 BROKER_URL = f"redis://{settings.REDIS_HOST}:{settings.REDIS_PORT}/0"
-BACKEND_URL = f"redis://{settings.REDIS_HOST}:{settings.REDIS_PORT}/0"
+BACKEND_URL = f"redis://{settings.REDIS_HOST}:{settings.REDIS_PORT}/1"
 
 
 celery_app = Celery(
