@@ -8,7 +8,7 @@ from app.models.models import Tag, Article
 
 
 async def fetch_story_details(client: httpx.AsyncClient, story_id: int) -> dict | None:
-    url = f"https://firebaseio.com{story_id}.json"
+    url = f"https://hacker-news.firebaseio.com/v0/item/{story_id}.json"
 
     response = await client.get(url)
 
@@ -21,7 +21,7 @@ async def fetch_story_details(client: httpx.AsyncClient, story_id: int) -> dict 
 async def run_parser():
     async with httpx.AsyncClient() as client:
         try:
-            top_stories_response = await client.get("https://firebase.com", timeout=5.0)
+            top_stories_response = await client.get("https://hacker-news.firebaseio.com/v0/topstories.json", timeout=5.0)
             story_ids = top_stories_response.json()[:30]
 
         except Exception as e:
